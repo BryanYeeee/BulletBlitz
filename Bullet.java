@@ -14,12 +14,11 @@ public class Bullet extends Actor
      */
     public void act() 
     {
-        setLocation(getX(), getY()+1);
+        setLocation(getX(), getY()+3);
         
-        Game w = (Game) getWorld();
-        if(isTouching(Hero.class)) {
-            w.removeObject(this);
-            w.spawnBullet();
-        }
+        //Game w = (Game) getWorld();
+        //if(isTouching(Hero.class)) {
+        //    w.removeObject(this);
+        //}
     }    
 }
