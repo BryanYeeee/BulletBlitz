@@ -8,7 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Game extends World
 {
-
+    int level;
+    int wave;
+    
     /**
      * Constructor for objects of class Game.
      * 
@@ -16,6 +18,15 @@ public class Game extends World
     public Game()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 600, 1); 
+        super(800, 800, 1); 
+        Hero hero = new Hero();
+        addObject(hero, 400,400);
+        
+        spawnBullet();
+    }
+    
+    public void spawnBullet() {
+        Bullet bullet = new Bullet();
+        addObject(bullet, 400, 0);
     }
 }
