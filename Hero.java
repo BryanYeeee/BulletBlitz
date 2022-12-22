@@ -20,9 +20,8 @@ public class Hero extends Actor
     } 
     
     public void contact() {
-     if(isTouching(Bullet.class)) {
+     if(isTouching(Bullet.class)) { 
             removeTouching(Bullet.class);
-            ((Game) getWorld()).increaseScore();
       }
     }
     //Method to allow user to control which direction the hero is facing
