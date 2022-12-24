@@ -33,15 +33,15 @@ public class Bullet extends Actor
          spawnTimer.mark();
         }
         
-        move();
-        contact();
-        
         if(!spawnNext && !((Game) getWorld()).finishWave() && spawnTimer.millisElapsed() >= spawnSpeed) {
             spawnTimer.mark();
             spawnNext = true;
             ((Game) getWorld()).sendBullet();
             ((Game) getWorld()).testLabel2.setValue(Integer.parseInt(((Game) getWorld()).testLabel2.getValue())+1);
         }
+        
+        move();
+        contact();
     }   
     
     public void contact() {

@@ -31,7 +31,6 @@ public class Game extends World
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1); 
         level = 0;
-        setValues(1,10,10,-1,1,750);
         
         levelLabel = new Label("Level: " + level,55);
         addObject(levelLabel, 105, 350);
@@ -46,30 +45,35 @@ public class Game extends World
         testLabel = new Label(1, 55);
         addObject(testLabel,400,200); 
         testLabel2 = new Label(1, 55);
-        addObject(testLabel2,200,200); 
-        sendBullet();
+        addObject(testLabel2,200,600); 
+        
+        nextWave(10,10,-1,1,750);
     }
     
-    public void setValues(int waveType, int waveLength, int bulletsLeft, int bulletDirection, int bulletSpeed, int spawnSpeed) {
-        this.waveType = waveType;
-        this.waveLength = waveLength;
-        this.bulletsLeft = bulletsLeft;
-        this.bulletDirection = bulletDirection;
-        this.bulletSpeed = bulletSpeed;
-        this.spawnSpeed = spawnSpeed;
-    }
-    
+    //Increase score, if wave is cleared then send next wave
     public void increaseScore() {
         score++;
         scoreLabel.setValue(score);
         bulletsLeft--;
         if (bulletsLeft == 0) {
-            level++;
             levelLabel.setValue("Level: " + level);
-            setValues(Greenfoot.getRandomNumber(3)+1,10,10,-1,bulletSpeed+1,750);
+            nextWave(10,10,-1,bulletSpeed+3,750);
         }
     }
     
+    //Send next wave based on bullet settings
+    public void nextWave(int waveLength, int bulletsLeft, int bulletDirection, int bulletSpeed, int spawnSpeed) {
+        level++;
+        this.waveType = level == 1 ? 2 : Greenfoot.getRandomNumber(3)+1; //Set bullet spawn mechanics for this wave, unless it is first level
+        this.waveLength = waveLength;
+        this.bulletsLeft = bulletsLeft;
+        this.bulletDirection = bulletDirection;
+        this.bulletSpeed = bulletSpeed;
+        this.spawnSpeed = spawnSpeed;
+        sendBullet();
+    }
+    
+    //Return true if all bullets have been sent
     public boolean finishWave() {
         return waveLength == 0;
     }
