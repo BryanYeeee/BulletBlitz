@@ -10,8 +10,9 @@ public class Game extends World
 {
     Label levelLabel;
     int level;
-    int wave;
     int waveType;
+    int waveLength;
+    int bulletsLeft;
     int bulletDirection;
     int bulletSpeed;
     int spawnSpeed;
@@ -29,11 +30,7 @@ public class Game extends World
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1); 
         level = 0;
-        wave = 0;
-        waveType = 1;
-        bulletDirection = -1;
-        bulletSpeed = 1;
-        spawnSpeed = 750;
+        setValues(1,10,0,-1,1,750);
         
         levelLabel = new Label("Level: " + level,55);
         addObject(levelLabel, 105, 350);
@@ -50,16 +47,21 @@ public class Game extends World
         sendWave();
     }
     
+    public void setValues(int waveType, int waveLength, int bulletsLeft, int bulletDirection, int bulletSpeed, int spawnSpeed) {
+        this.waveType = waveType;
+        this.waveLength = waveLength;
+        this.bulletsLeft = bulletsLeft;
+        this.bulletDirection = bulletDirection;
+        this.bulletSpeed = bulletSpeed;
+        this.spawnSpeed = spawnSpeed;
+    }
+    
     public void sendWave() {
-        if (wave == 0) {
+        if (bulletsLeft == 0) {
             level++;
             levelLabel.setValue("Level: " + level);
-            wave = 10;
-            waveType = Greenfoot.getRandomNumber(3)+1;
+            setValues(Greenfoot.getRandomNumber(3)+1,10,0,-1,bulletSpeed+1,750);
             testLabel.setValue(waveType);
-            bulletDirection = -1;
-            bulletSpeed++;
-            spawnSpeed = 750;
             sendWave();
             return;
         }
@@ -83,7 +85,7 @@ public class Game extends World
     public void increaseScore() {
         score++;
         scoreLabel.setValue(score);
-        wave--;
+        bulletsLeft--;
     }
     
     public void spawnBullet(int direction, int speed, int spawnSpeed) {
