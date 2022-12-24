@@ -50,6 +50,11 @@ public class Label extends Actor
         updateImage();
     }
     
+    public String getValue()
+    {
+        return this.value;
+    }
+    
     /**
      * Sets the value as integer
      * 

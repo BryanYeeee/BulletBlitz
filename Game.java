@@ -10,9 +10,9 @@ public class Game extends World
 {
     Label levelLabel;
     int level;
-    int waveType;
-    int waveLength;
-    int bulletsLeft;
+    int waveType; //Controls the spawning mechanics of the bullets
+    int waveLength; //How many more bullets need to spawned
+    int bulletsLeft; //How many more bullets the hero needs to defend before spawning next wave
     int bulletDirection;
     int bulletSpeed;
     int spawnSpeed;
@@ -21,6 +21,7 @@ public class Game extends World
     int score;
     
     public Label testLabel;
+    public Label testLabel2;
     SimpleTimer spawnTimer = new SimpleTimer();
     /**
      * Constructor for objects of class Game.
@@ -30,7 +31,6 @@ public class Game extends World
         // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1); 
         level = 0;
-        setValues(1,10,0,-1,1,750);
         
         levelLabel = new Label("Level: " + level,55);
         addObject(levelLabel, 105, 350);
@@ -42,29 +42,45 @@ public class Game extends World
         Hero hero = new Hero();
         addObject(hero, 400,400);
         
-        testLabel = new Label(spawnTimer.millisElapsed(), 55);
-        addObject(testLabel,50,200); 
-        sendWave();
+        testLabel = new Label(1, 55);
+        addObject(testLabel,400,200); 
+        testLabel2 = new Label(1, 55);
+        addObject(testLabel2,200,600); 
+        
+        nextWave(10,10,-1,1,750);
     }
     
-    public void setValues(int waveType, int waveLength, int bulletsLeft, int bulletDirection, int bulletSpeed, int spawnSpeed) {
-        this.waveType = waveType;
+    //Increase score, if wave is cleared then send next wave
+    public void increaseScore() {
+        score++;
+        scoreLabel.setValue(score);
+        bulletsLeft--;
+        if (bulletsLeft == 0) {
+            levelLabel.setValue("Level: " + level);
+            nextWave(10,10,-1,bulletSpeed+3,750);
+        }
+    }
+    
+    //Send next wave based on bullet settings
+    public void nextWave(int waveLength, int bulletsLeft, int bulletDirection, int bulletSpeed, int spawnSpeed) {
+        level++;
+        this.waveType = level == 1 ? 2 : Greenfoot.getRandomNumber(3)+1; //Set bullet spawn mechanics for this wave, unless it is first level
         this.waveLength = waveLength;
         this.bulletsLeft = bulletsLeft;
         this.bulletDirection = bulletDirection;
         this.bulletSpeed = bulletSpeed;
         this.spawnSpeed = spawnSpeed;
+        sendBullet();
     }
     
-    public void sendWave() {
-        if (bulletsLeft == 0) {
-            level++;
-            levelLabel.setValue("Level: " + level);
-            setValues(Greenfoot.getRandomNumber(3)+1,10,0,-1,bulletSpeed+1,750);
-            testLabel.setValue(waveType);
-            sendWave();
-            return;
-        }
+    //Return true if all bullets have been sent
+    public boolean finishWave() {
+        return waveLength == 0;
+    }
+    
+    //Method which will control the bullets spawn mechanics before adding to game world (Like a middleware)
+    public void sendBullet() {
+        testLabel.setValue(bulletsLeft + " " + waveLength + " " + finishWave());
         switch (waveType) {
              case 1:
                 spawnBullet(Greenfoot.getRandomNumber(4), bulletSpeed,spawnSpeed);
@@ -79,34 +95,14 @@ public class Game extends World
                 spawnBullet(Greenfoot.getRandomNumber(4), bulletSpeed/2,spawnSpeed/2);
                 break;
         }
-        
     }
     
-    public void increaseScore() {
-        score++;
-        scoreLabel.setValue(score);
-        bulletsLeft--;
-    }
-    
+    //Method which adds the bullet object into the game world
     public void spawnBullet(int direction, int speed, int spawnSpeed) {
-        Bullet bullet;
-        switch(direction) {
-            case 0:
-                bullet = new Bullet("w",speed,spawnSpeed,wave == 1);
-                addObject(bullet, 400, 0);
-                break;
-            case 1:
-                bullet = new Bullet("a",speed,spawnSpeed,wave == 1);
-                addObject(bullet, 0, 400);
-                break;
-            case 2:
-                bullet = new Bullet("s",speed,spawnSpeed,wave == 1);
-                addObject(bullet, 400, 800);
-                break;
-            case 3:
-                bullet = new Bullet("d",speed,spawnSpeed,wave == 1);
-                addObject(bullet, 800, 400);
-                break;
-        }
+        String[] possibleDirections = {"w","a","s","d"};
+        waveLength--;
+        Bullet newBullet = new Bullet(possibleDirections[direction], speed, spawnSpeed);
+        addObject(newBullet, 0,0);
+        newBullet.setSpawnLocation();
     }
 }

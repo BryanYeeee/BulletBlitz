@@ -19,12 +19,13 @@ public class Bullet extends Actor
     boolean firstAct = true;
     boolean spawnNext = false;
     SimpleTimer spawnTimer = new SimpleTimer();
-    public Bullet(String direction, int speed, int spawnSpeed, boolean spawnNext) {
+    
+    public Bullet(String direction, int speed, int spawnSpeed) {
         this.direction = direction;
         this.speed = speed;
         this.spawnSpeed = spawnSpeed;
-        this.spawnNext = spawnNext;
     }
+    
     public void act() 
     {
         if(firstAct) {
@@ -32,24 +33,27 @@ public class Bullet extends Actor
          spawnTimer.mark();
         }
         
-        move();
-        contact();
-        
-        if(!spawnNext && spawnTimer.millisElapsed() >= spawnSpeed) {
+        if(!spawnNext && !((Game) getWorld()).finishWave() && spawnTimer.millisElapsed() >= spawnSpeed) {
             spawnTimer.mark();
             spawnNext = true;
-            ((Game) getWorld()).sendWave();
+            ((Game) getWorld()).sendBullet();
+            ((Game) getWorld()).testLabel2.setValue(Integer.parseInt(((Game) getWorld()).testLabel2.getValue())+1);
         }
-    }    
+        
+        move();
+        contact();
+    }   
+    
     public void contact() {
      if(isTouching(Hero.class)) { 
-            Game game = ((Game) getWorld());
-            game.increaseScore();
-            if(!spawnNext) {
-                game.sendWave();
+            if(!spawnNext && !((Game) getWorld()).finishWave()) {
+            ((Game) getWorld()).testLabel2.setValue(Integer.parseInt(((Game) getWorld()).testLabel2.getValue())+9999);
+                ((Game) getWorld()).sendBullet();
             }
+            ((Game) getWorld()).increaseScore();
       }
     }
+    
     public void move() {
         switch(direction) {
             case "w":
@@ -66,5 +70,22 @@ public class Bullet extends Actor
                 break;
         }
         
+    }
+    
+    public void setSpawnLocation() {
+        switch(direction) {
+            case "w":
+                setLocation(400, 0);
+                break;
+            case "a":
+                setLocation(0, 400);
+                break;
+            case "s":
+                setLocation(400, 800);
+                break;
+            case "d":
+                setLocation(800, 400);
+                break;
+        }
     }
 }
