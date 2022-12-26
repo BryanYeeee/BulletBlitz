@@ -15,15 +15,17 @@ public class Bullet extends Actor
     String direction;
     int speed;
     int spawnSpeed;
+    int damage;
     
     boolean firstAct = true;
     boolean spawnNext = false;
     SimpleTimer spawnTimer = new SimpleTimer();
     
-    public Bullet(String direction, int speed, int spawnSpeed) {
+    public Bullet(String direction, int speed, int spawnSpeed, int damage) {
         this.direction = direction;
         this.speed = speed;
         this.spawnSpeed = spawnSpeed;
+        this.damage = damage;
     }
     
     public void act() 
@@ -37,7 +39,6 @@ public class Bullet extends Actor
             spawnTimer.mark();
             spawnNext = true;
             ((Game) getWorld()).sendBullet();
-            ((Game) getWorld()).testLabel2.setValue(Integer.parseInt(((Game) getWorld()).testLabel2.getValue())+1);
         }
         
         move();
@@ -47,10 +48,14 @@ public class Bullet extends Actor
     public void contact() {
      if(isTouching(Hero.class)) { 
             if(!spawnNext && !((Game) getWorld()).finishWave()) {
-            ((Game) getWorld()).testLabel2.setValue(Integer.parseInt(((Game) getWorld()).testLabel2.getValue())+9999);
                 ((Game) getWorld()).sendBullet();
             }
-            ((Game) getWorld()).increaseScore();
+            Hero hero = (Hero) getOneIntersectingObject(Hero.class);
+            if(hero.getFacingDirection().equals(direction)) {
+                ((Game) getWorld()).increaseScore();
+            } else {
+                ((Game) getWorld()).takeDamage(damage);
+            }
       }
     }
     

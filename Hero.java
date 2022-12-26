@@ -9,7 +9,33 @@ import java.util.List;
  */
 public class Hero extends Actor
 {
+    static int fullHealth = 100;
+    int health = 100;
     String facing = "s";
+    GreenfootImage[] heroSprites = new GreenfootImage[4];
+    
+    public Hero() {
+        heroSprites[0] = new GreenfootImage("images/Hero_w.png");
+        heroSprites[1] = new GreenfootImage("images/Hero_a.png");
+        heroSprites[2] = new GreenfootImage("images/Hero_s.png");
+        heroSprites[3] = new GreenfootImage("images/Hero_d.png");
+        setImage(heroSprites[2]);
+    }
+    
+    //Returns true if character dies from health change
+    public boolean changeHealth(int change) {
+        health += change;
+        return health < 0;
+    }
+    
+    public int getHealth() {
+        return health;
+    }
+    
+    public String getFacingDirection() {
+        return facing;
+    }
+    
     /**
      * Act - do whatever the Hero wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -32,19 +58,23 @@ public class Hero extends Actor
         switch(key) {
          case "w":
          case "up":
-            setRotation(270);
+            facing = "w";
+            setImage(heroSprites[0]);
             break;
          case "a":
          case "left":
-            setRotation(180);
+            facing = "a";
+            setImage(heroSprites[1]);
             break;
          case "s":
          case "down":
-            setRotation(90);
+            facing = "s";
+            setImage(heroSprites[2]);
             break;
          case "d":
          case "right":
-            setRotation(0);
+            facing = "d";
+            setImage(heroSprites[3]);
             break;
         }
     }
