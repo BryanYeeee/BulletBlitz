@@ -26,6 +26,7 @@ public class Bullet extends Actor
         this.speed = speed;
         this.spawnSpeed = spawnSpeed;
         this.damage = damage;
+        setImage("images/bullet" + direction.toUpperCase() + ".png");
     }
     
     public void act() 

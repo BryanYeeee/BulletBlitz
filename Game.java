@@ -33,8 +33,8 @@ public class Game extends World
         super(800, 800, 1); 
         level = 0;
         waveType = 2;
-        bulletSpeed = 1;
-        spawnSpeed = 1000;
+        bulletSpeed = 10;//1
+        spawnSpeed = 500;//1000
         
         
         levelLabel = new Label("Level: " + level,50);
