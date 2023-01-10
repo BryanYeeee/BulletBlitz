@@ -9,7 +9,6 @@ import java.util.List;
  */
 public class Hero extends Actor
 {
-    static int fullHealth = 100;
     int health = 100;
     String facing = "s";
     GreenfootImage[] heroSprites = new GreenfootImage[4];
@@ -22,7 +21,9 @@ public class Hero extends Actor
         setImage(heroSprites[2]);
     }
     
-    //Returns true if character dies from health change
+    /**
+     * Returns true if character dies from health change
+     */
     public boolean changeHealth(int change) {
         health += change;
         return health < 0;
@@ -51,7 +52,10 @@ public class Hero extends Actor
             removeTouching(Bullet.class);
       }
     }
-    //Method to allow user to control which direction the hero is facing
+    
+    /**
+     * Method to allow user to control which direction the hero is facing.
+     */
     public void control() {
         String key = Greenfoot.getKey();
         if(key==null)return;

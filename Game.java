@@ -29,13 +29,17 @@ public class Game extends World
      */
     public Game()
     {    
-        // Create a new world with 800x800 cells with a cell size of 1x1 pixels.
         super(800, 800, 1); 
         level = 0;
         waveType = 2;
-        bulletSpeed = 10;//1
-        spawnSpeed = 500;//1000
+        bulletSpeed = 3;
+        spawnSpeed = 750;
+
+        Hero hero = new Hero();
+        addObject(hero, 400,400);
         
+        healthLabel = new Label(hero.getHealth(), 100);
+        addObject(healthLabel,650,150); 
         
         levelLabel = new Label("Level: " + level,50);
         addObject(levelLabel, 150, 650);
@@ -44,21 +48,17 @@ public class Game extends World
         scoreLabel = new Label(score, 100);
         addObject(scoreLabel,150,150); 
         
-        healthLabel = new Label(Hero.fullHealth, 100);
-        addObject(healthLabel,650,150); 
-        
-        Hero hero = new Hero();
-        addObject(hero, 400,400);
-        
         testLabel = new Label(1, 35);
         addObject(testLabel,400,500); 
         testLabel2 = new Label(bulletsLeft, 55);
         addObject(testLabel2,650,650); 
         
-        nextWave();
+        nextWave(); //start the game
     }
     
-    //Increase score, if wave is cleared then send next wave
+    /**
+     * Increase score, if wave is cleared then send next wave.
+     */
     public void increaseScore() {
         score++;
         scoreLabel.setValue(score);
@@ -69,7 +69,11 @@ public class Game extends World
         }
     }
     
-    //Damages player
+    /**
+     * Damages the player.
+     * 
+     * @param amount of damage the player will take
+     */
     public void takeDamage(int damageTaken) {
         Hero hero = getObjects(Hero.class).get(0);
         if (hero.changeHealth(damageTaken*-1)) { //Damage taken will reduce health, so change value to negative
@@ -83,45 +87,57 @@ public class Game extends World
         }
     }
     
-    //Send next wave based on bullet settings
+    /**
+     * Send next wave based on bullet settings
+     */
     public void nextWave() {
         level++;
         levelLabel.setValue("Level: " + level);
         this.waveType = level == 1 ? 2 : Greenfoot.getRandomNumber(3)+1; //Set bullet spawn mechanics for this wave, unless it is first level
         this.waveLength = 10;
         this.bulletsLeft = 10;
-        this.bulletDirection = -1;
-        this.bulletSpeed += bulletSpeed == 10 ? 0 : 1; //Increase bullet speed by 1, capping at 15
+        this.bulletDirection = -1; //Direction the bullets will spawn if the waveType equals 2
+        this.bulletSpeed += bulletSpeed == 10 ? 0 : 1; //Increase bullet speed by 1, capping at 10
         testLabel2.setValue(spawnSpeed + " " + spawnSpeed*0.95);
-        this.spawnSpeed = spawnSpeed <= 500 ? 500 : (int) (spawnSpeed*0.95); //Decrease spawn speed of bullet by 5%, capping at 450ms
+        this.spawnSpeed = spawnSpeed <= 500 ? 500 : (int) (spawnSpeed*0.95); //Decrease spawn speed of bullet by 5%, capping at 500ms
         sendBullet();
     }
     
-    //Return true if all bullets have been sent
+    /**
+     * Return true if all bullets have been sent.
+     */
     public boolean finishWave() {
         return waveLength == 0;
     }
     
-    //Method which will control the bullets spawn mechanics before adding to game world (Like a middleware)
+    /**
+     * Method which will control the bullets spawn mechanics before adding to game world (Like a middleware).
+     */
     public void sendBullet() {
         testLabel.setValue(bulletsLeft + " " + waveLength + " " + finishWave());
         switch (waveType) {
-             case 1:
+             case 1: //Random direction wave
                 spawnBullet(Greenfoot.getRandomNumber(4), bulletSpeed,spawnSpeed);
                 break;
-             case 2:
+             case 2: //Set direction wave
                 if(bulletDirection == -1) {
                     bulletDirection = Greenfoot.getRandomNumber(4);
                 }
                 spawnBullet(bulletDirection, bulletSpeed,spawnSpeed);
                 break;
-             case 3:
+             case 3: //Slower bullets wave
                 spawnBullet(Greenfoot.getRandomNumber(4), bulletSpeed/2,spawnSpeed/2);
                 break;
         }
     }
     
-    //Method which adds the bullet object into the game world
+    /**
+     * Method which adds the bullet object into the game world.
+     * 
+     * @param direction that the spawned bullet will face
+     * @param move speed of the bullet
+     * @param number of milliseconds before the next bullet will spawn
+     */
     public void spawnBullet(int direction, int speed, int spawnSpeed) {
         String[] possibleDirections = {"w","a","s","d"};
         waveLength--;
