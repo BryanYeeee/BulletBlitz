@@ -80,6 +80,11 @@ public class Hero extends Actor
             facing = "d";
             setImage(heroSprites[3]);
             break;
+         //Greenfoot.getKey() cannot be used twice at the same time, so the instruction page control will be placed here
+         case "space":
+            if(getWorld() instanceof Instructions) {
+                ((Instructions) getWorld()).nextInstruction();
+            }
         }
     }
 }

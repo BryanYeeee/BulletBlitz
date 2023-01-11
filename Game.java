@@ -43,7 +43,7 @@ public class Game extends World
         addObject(levelLabel, 175, 675);
         
         score = 0;
-        scoreLabel = new Label(500, 100);
+        scoreLabel = new Label(score, 100);
         addObject(scoreLabel,150,125);
         
         nextWave(); //start the game

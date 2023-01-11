@@ -17,4 +17,17 @@ public class TitleScreen extends World
     {    
         super(800, 800, 1); 
     }
+    
+    public void act() {
+        String key = Greenfoot.getKey();
+        if(key==null)return;
+        if(key.equals("space")) {
+            Game gameWorld = new Game();
+            Greenfoot.setWorld(gameWorld);
+        }
+        if(key.equals("w")) {
+            Instructions instructions = new Instructions();
+            Greenfoot.setWorld(instructions);
+        }
+    }
 }
