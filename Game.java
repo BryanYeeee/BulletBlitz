@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Game here.
+ * Main screen which the game will be played on
  * 
  * @author Bryan Yee
  * @version 12/20/2022

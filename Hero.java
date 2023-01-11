@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class Hero here.
+ * The controllable player character
  * 
  * @author Bryan Yee
  * @version 12/21/2022

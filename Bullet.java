@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Bullet here.
+ * The projectile that the character will defend from
  * 
  * @author Bryan Yee 
  * @version 12/21/2022
