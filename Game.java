@@ -21,8 +21,6 @@ public class Game extends World
     Label scoreLabel;
     int score;
     
-    public Label testLabel;
-    public Label testLabel2;
     SimpleTimer spawnTimer = new SimpleTimer();
     /**
      * Constructor for objects of class Game.
@@ -38,20 +36,15 @@ public class Game extends World
         Hero hero = new Hero();
         addObject(hero, 400,400);
         
-        healthLabel = new Label(hero.getHealth(), 100);
-        addObject(healthLabel,650,150); 
+        healthLabel = new Label("HP: " + hero.getHealth(), 50);
+        addObject(healthLabel,650,125); 
         
         levelLabel = new Label("Level: " + level,50);
-        addObject(levelLabel, 150, 650);
+        addObject(levelLabel, 175, 675);
         
         score = 0;
-        scoreLabel = new Label(score, 100);
-        addObject(scoreLabel,150,150); 
-        
-        testLabel = new Label(1, 35);
-        addObject(testLabel,400,500); 
-        testLabel2 = new Label(bulletsLeft, 55);
-        addObject(testLabel2,650,650); 
+        scoreLabel = new Label(500, 100);
+        addObject(scoreLabel,150,125);
         
         nextWave(); //start the game
     }
@@ -63,7 +56,6 @@ public class Game extends World
         score++;
         scoreLabel.setValue(score);
         bulletsLeft--;
-        testLabel2.setValue(bulletsLeft);
         if (bulletsLeft == 0) {
             nextWave();
         }
@@ -79,9 +71,8 @@ public class Game extends World
         if (hero.changeHealth(damageTaken*-1)) { //Damage taken will reduce health, so change value to negative
             //Game Over
         }
-        healthLabel.setValue(hero.getHealth());
+        healthLabel.setValue("HP: " + hero.getHealth());
         bulletsLeft--;
-        testLabel2.setValue(bulletsLeft);
         if (bulletsLeft == 0) {
             nextWave();
         }
@@ -98,7 +89,6 @@ public class Game extends World
         this.bulletsLeft = 10;
         this.bulletDirection = -1; //Direction the bullets will spawn if the waveType equals 2
         this.bulletSpeed += bulletSpeed == 10 ? 0 : 1; //Increase bullet speed by 1, capping at 10
-        testLabel2.setValue(spawnSpeed + " " + spawnSpeed*0.95);
         this.spawnSpeed = spawnSpeed <= 500 ? 500 : (int) (spawnSpeed*0.95); //Decrease spawn speed of bullet by 5%, capping at 500ms
         sendBullet();
     }
@@ -114,7 +104,6 @@ public class Game extends World
      * Method which will control the bullets spawn mechanics before adding to game world (Like a middleware).
      */
     public void sendBullet() {
-        testLabel.setValue(bulletsLeft + " " + waveLength + " " + finishWave());
         switch (waveType) {
              case 1: //Random direction wave
                 spawnBullet(Greenfoot.getRandomNumber(4), bulletSpeed,spawnSpeed);
