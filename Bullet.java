@@ -21,12 +21,20 @@ public class Bullet extends Actor
     boolean spawnNext = false;
     SimpleTimer spawnTimer = new SimpleTimer();
     
+    GreenfootImage[] animationFrames = new GreenfootImage[17];
+    int currentFrame = 0;
+    SimpleTimer animTimer = new SimpleTimer();
+    
     public Bullet(String direction, int speed, int spawnSpeed, int damage) {
         this.direction = direction;
         this.speed = speed;
         this.spawnSpeed = spawnSpeed; //number of milliseconds before the next bullet will spawn
         this.damage = damage;
-        setImage("images/bullet" + direction.toUpperCase() + ".png");
+        
+        //Load Images
+        for (int i = 0; i < 17; i++) {
+            animationFrames[i] = new GreenfootImage("images/bullet"+direction.toUpperCase()+"/bullet"+i+".png");
+        }
     }
     
     public void act() 
@@ -35,6 +43,7 @@ public class Bullet extends Actor
          firstAct = false;
          spawnTimer.mark();
         }
+        animation();
         spawnBullet();
         move();
         contact();
@@ -69,6 +78,14 @@ public class Bullet extends Actor
                 ((Game) getWorld()).takeDamage(damage);
             }
       }
+    }
+    
+    public void animation() {
+        if(animTimer.millisElapsed() < 25) return;
+        animTimer.mark();
+        
+        setImage(animationFrames[currentFrame]);
+        currentFrame = (currentFrame+1) % animationFrames.length;
     }
     
     public void move() {
