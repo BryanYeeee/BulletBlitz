@@ -12,6 +12,8 @@ public class Bullet extends Actor
      * Act - do whatever the Bullet wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    GreenfootSound contactSound = new GreenfootSound("clink.mp3");
+    GreenfootSound damageSound = new GreenfootSound("bonk.mp3");
     String direction;
     int speed;
     int spawnSpeed;
@@ -73,8 +75,10 @@ public class Bullet extends Actor
             Hero hero = (Hero) getOneIntersectingObject(Hero.class);
             //If the hero is facing the right direction then they will get score else they will take damage
             if(hero.getFacingDirection().equals(direction)) {
+                contactSound.play();
                 ((Game) getWorld()).increaseScore();
             } else {
+                damageSound.play();
                 ((Game) getWorld()).takeDamage(damage);
             }
       }
