@@ -70,6 +70,9 @@ public class Game extends World
         Hero hero = getObjects(Hero.class).get(0);
         if (hero.changeHealth(damageTaken*-1)) { //Damage taken will reduce health, so change value to negative
             //Game Over
+            EndScreen end = new EndScreen(score, level);
+            Greenfoot.setWorld(end);
+            return;
         }
         healthLabel.setValue("HP: " + hero.getHealth());
         bulletsLeft--;
