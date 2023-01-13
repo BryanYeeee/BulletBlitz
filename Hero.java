@@ -2,15 +2,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class Hero here.
+ * The controllable player character
  * 
  * @author Bryan Yee
  * @version 12/21/2022
  */
 public class Hero extends Actor
 {
-    static int fullHealth = 100;
-    int health = 100;
+    int health = 1;
     String facing = "s";
     GreenfootImage[] heroSprites = new GreenfootImage[4];
     
@@ -22,10 +21,12 @@ public class Hero extends Actor
         setImage(heroSprites[2]);
     }
     
-    //Returns true if character dies from health change
+    /**
+     * Returns true if character dies from health change
+     */
     public boolean changeHealth(int change) {
         health += change;
-        return health < 0;
+        return health <= 0;
     }
     
     public int getHealth() {
@@ -51,7 +52,10 @@ public class Hero extends Actor
             removeTouching(Bullet.class);
       }
     }
-    //Method to allow user to control which direction the hero is facing
+    
+    /**
+     * Method to allow user to control which direction the hero is facing.
+     */
     public void control() {
         String key = Greenfoot.getKey();
         if(key==null)return;
@@ -76,6 +80,11 @@ public class Hero extends Actor
             facing = "d";
             setImage(heroSprites[3]);
             break;
+         //Greenfoot.getKey() cannot be used twice at the same time, so the instruction page control will be placed here
+         case "space":
+            if(getWorld() instanceof Instructions) {
+                ((Instructions) getWorld()).nextInstruction();
+            }
         }
     }
 }
