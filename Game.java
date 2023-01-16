@@ -30,7 +30,7 @@ public class Game extends World
         super(800, 800, 1); 
         level = 0;
         waveType = 2;
-        bulletSpeed = 3;
+        bulletSpeed = 5;
         spawnSpeed = 750;
 
         Hero hero = new Hero();
@@ -87,7 +87,7 @@ public class Game extends World
     public void nextWave() {
         level++;
         levelLabel.setValue("Level: " + level);
-        this.waveType = level == 1 ? 2 : Greenfoot.getRandomNumber(3)+1; //Set bullet spawn mechanics for this wave, unless it is first level
+        this.waveType = level == 1 ? 2 : Greenfoot.getRandomNumber(5)+1; //Set bullet spawn mechanics for this wave, unless it is first level
         this.waveLength = 10;
         this.bulletsLeft = 10;
         this.bulletDirection = -1; //Direction the bullets will spawn if the waveType equals 2
@@ -117,7 +117,9 @@ public class Game extends World
                 }
                 spawnBullet(bulletDirection, bulletSpeed,spawnSpeed);
                 break;
-             case 3: //Slower bullets wave
+             case 3: //Slower bullets wave, more cases to increase chances of this mechanic
+             case 4:
+             case 5:
                 spawnBullet(Greenfoot.getRandomNumber(4), bulletSpeed/2,spawnSpeed/2);
                 break;
         }

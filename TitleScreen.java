@@ -37,10 +37,7 @@ public class TitleScreen extends World
      * That is: create the initial objects and add them to the world.
      */
     private void prepare()
-    {
-        Label titleLabel = new Label("the game" , 100);
-        addObject(titleLabel, 400,400);
-        
+    {        
         Label startLabel = new Label("<space> to Start",40);
         addObject(startLabel, 175, 675);
         

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Hero extends Actor
 {
-    int health = 1;
+    int health = 50;
     String facing = "s";
     GreenfootImage[] heroSprites = new GreenfootImage[4];
     
@@ -23,6 +23,8 @@ public class Hero extends Actor
     
     /**
      * Returns true if character dies from health change
+     * 
+     * @param amount of health to change by
      */
     public boolean changeHealth(int change) {
         health += change;

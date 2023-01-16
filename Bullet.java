@@ -8,10 +8,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Bullet extends Actor
 {
-    /**
-     * Act - do whatever the Bullet wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     GreenfootSound contactSound = new GreenfootSound("clink.mp3");
     GreenfootSound damageSound = new GreenfootSound("bonk.mp3");
     String direction;
@@ -27,18 +23,30 @@ public class Bullet extends Actor
     int currentFrame = 0;
     SimpleTimer animTimer = new SimpleTimer();
     
+    /**
+     * Create a bullet
+     * 
+     * @param string direction the bullet is spawning from (w, a, s, or d)
+     * @param speed at which bullet will move
+     * @param number of milliseconds before the next bullet will spawn
+     * @param amount of damage the bullet will deal
+     */
     public Bullet(String direction, int speed, int spawnSpeed, int damage) {
         this.direction = direction;
         this.speed = speed;
         this.spawnSpeed = spawnSpeed; //number of milliseconds before the next bullet will spawn
         this.damage = damage;
         
-        //Load Images
+        //Load Images/Frames
         for (int i = 0; i < 17; i++) {
             animationFrames[i] = new GreenfootImage("images/bullet"+direction.toUpperCase()+"/bullet"+i+".png");
         }
     }
     
+    /**
+     * Act - do whatever the Bullet wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
     public void act() 
     {
         if(firstAct) {
