@@ -25,9 +25,11 @@ In this game, the player will defend incoming bullets to score the most points!
   Bullet Sprite:
 ![Bullet Sprite](/images/bulletA/bullet1.png)
 
+![Game Preview](/images/Preview.png)
+
 ## How do I get started playing?
  1. Download Java's [Greenfoot Framework](https://www.greenfoot.org/door) 
- 2. Clone the files from the 'main' branch of your respository
+ 2. Clone the files from the 'main' branch of this repository
  3. Open the downloaded files using the Greenfoot App
  4. Hit run and have fun!
 
