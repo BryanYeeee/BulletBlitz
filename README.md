@@ -2,7 +2,7 @@
 ### The bullet defending game of the century.
 
 ##### This game was created using Java's [Greenfoot Framework](https://www.greenfoot.org/door) 
-##### Bryan Yee, ISC3U1: Computer and Information Science 2022-2023
+##### Bryan Yee, Mr. Chan ISC3U1: Computer and Information Science 2022-2023
 
 ![Game Title Screen](/images/Title.png)
 
@@ -19,10 +19,22 @@ In this game, the player will defend incoming bullets to score the most points!
  7. Once all arrows reach the player, the next level will start (level in bottom left).
  8. Every level will have different spawning mechanics and increasing speed/difficulty.
  9. Try to get the most score!
+ 
+  Hero Sprite:
+![Hero Sprite](/images/Hero_d.png)
+  Bullet Sprite:
+![Bullet Sprite](/images/bulletA/bullet1.png)
 
 ## How do I get started playing?
  1. Download Java's [Greenfoot Framework](https://www.greenfoot.org/door) 
  2. Clone the files from the 'main' branch of your respository
  3. Open the downloaded files using the Greenfoot App
  4. Hit run and have fun!
+
+### Cited
+- All Images and Sprites created by Bryan Yee: https://store.steampowered.com/app/431730/Aseprite/
+- Clink Sound Effect: https://www.youtube.com/watch?v=QIv4pMN1A9c
+- Bonk Sound Effect: https://www.youtube.com/watch?v=6TP0abZdRXg
+- Sound Effect Edits: https://www.audacityteam.org/
+- Title Font: https://www.fontget.com/font/earthrealm/
 
