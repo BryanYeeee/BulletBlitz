@@ -23,6 +23,8 @@ public class Hero extends Actor
     
     /**
      * Returns true if character dies from health change
+     * 
+     * @param amount of health to change by
      */
     public boolean changeHealth(int change) {
         health += change;

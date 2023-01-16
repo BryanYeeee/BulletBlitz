@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class EndScreen here.
+ * Screen that will display score and level when the player loses a game
  * 
  * @author Bryan Yee 
  * @version 1/12/2023
@@ -12,6 +12,8 @@ public class EndScreen extends World
     /**
      * Constructor for objects of class EndScreen.
      * 
+     * @param final score value
+     * @param final level value
      */
     public EndScreen(int score, int level)
     {    
