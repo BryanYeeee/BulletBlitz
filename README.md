@@ -33,7 +33,7 @@ In this game, the player will defend incoming bullets to score the most points!
  3. Open the downloaded files using the Greenfoot App
  4. Hit run and have fun!
 
-### Cited
+### Cited Sources
 - All Images and Sprites created by Bryan Yee: https://store.steampowered.com/app/431730/Aseprite/
 - Clink Sound Effect: https://www.youtube.com/watch?v=QIv4pMN1A9c
 - Bonk Sound Effect: https://www.youtube.com/watch?v=6TP0abZdRXg
